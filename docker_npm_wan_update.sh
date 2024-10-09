@@ -65,4 +65,4 @@ else
     docker exec $CONTAINER /bin/bash -c "/usr/sbin/nginx -s reload"
     echo "$(date +"%Y-%m-%d %H:%M:%S") - NGINX Proxy Manager restarted. End" | tee -a "$SCRIPT_DIR"/"$WANIPLOG"
 fi
-echo "$(tail -$NRLINES "$SCRIPT_DIR"/"$WANIPLOG")" > "$SCRIPT_DIR"/"$WANIPLOG"
+tail -n $NRLINES "$SCRIPT_DIR/$WANIPLOG" > $SCRIPT_DIR/_temp.txt && mv $SCRIPT_DIR/_temp.txt "$SCRIPT_DIR/$WANIPLOG"
