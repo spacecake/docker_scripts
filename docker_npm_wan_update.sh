@@ -20,6 +20,9 @@ WANIPTXT="wanip.txt"
 # PROXYHOSTCONFIG="/srv/docker/nginxproxymanager/data/nginx/proxy_host"
 PROXYHOSTCONFIG="CHANGE ME"
 
+# Number of lines to keep
+NRLINES=1000
+
 ############################################################
 # Do not change after this line 
 echo "$(date +"%Y-%m-%d %H:%M:%S") - Check started" | tee -a "$SCRIPT_DIR"/"$WANIPLOG"
@@ -59,3 +62,4 @@ else
     docker exec nginxproxymanager /bin/bash -c "/usr/sbin/nginx -s reload"
     echo "$(date +"%Y-%m-%d %H:%M:%S") - NGINX Proxy Manager restarted. End" | tee -a "$SCRIPT_DIR"/"$WANIPLOG"
 fi
+echo "$(tail -$NRLINES "$SCRIPT_DIR"/"$WANIPLOG")" > "$SCRIPT_DIR"/"$WANIPLOG"
