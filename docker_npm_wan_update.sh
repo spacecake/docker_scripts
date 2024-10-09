@@ -23,6 +23,9 @@ PROXYHOSTCONFIG="CHANGE ME"
 # Number of lines to keep
 NRLINES=1000
 
+# Specify container name, change to reflect your container name
+CONTAINER=nginxproxymanager
+
 ############################################################
 # Do not change after this line 
 echo "$(date +"%Y-%m-%d %H:%M:%S") - Check started" | tee -a "$SCRIPT_DIR"/"$WANIPLOG"
@@ -59,7 +62,7 @@ else
         fi
     done
     # Reload NGINX Proxy Manager container
-    docker exec nginxproxymanager /bin/bash -c "/usr/sbin/nginx -s reload"
+    docker exec $CONTAINER /bin/bash -c "/usr/sbin/nginx -s reload"
     echo "$(date +"%Y-%m-%d %H:%M:%S") - NGINX Proxy Manager restarted. End" | tee -a "$SCRIPT_DIR"/"$WANIPLOG"
 fi
 echo "$(tail -$NRLINES "$SCRIPT_DIR"/"$WANIPLOG")" > "$SCRIPT_DIR"/"$WANIPLOG"
